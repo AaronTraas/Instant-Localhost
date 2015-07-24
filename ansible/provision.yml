@@ -1,0 +1,18 @@
+---
+- hosts: all
+  sudo: true
+  vars_files:
+    - vars/all.yml
+  roles:
+    - server
+    - vagrant_local
+    - apache
+    - php
+    - xdebug
+    - app
+
+  post_tasks:
+    - name: open URL
+      sudo: no
+      local_action: shell open {{ base_url }}
+      ignore_errors: yes
