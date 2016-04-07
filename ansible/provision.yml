@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  sudo: true
+  become: true
   vars_files:
     - vars/all.yml
   roles:
@@ -9,10 +9,9 @@
     - apache
     - php
     - xdebug
-    - app
 
   post_tasks:
     - name: open URL
-      sudo: no
+      become: no
       local_action: shell open {{ base_url }}
       ignore_errors: yes

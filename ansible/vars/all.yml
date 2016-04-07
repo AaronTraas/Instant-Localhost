@@ -1,7 +1,7 @@
 ---
 server:
     install: '1'
-    timezone: UTC
+    timezone: America/New_York
     locale: en_US.UTF-8
 vagrant_local:
     install: '1'
@@ -11,8 +11,8 @@ apache:
     docroot: /vagrant
     servername: localhost
 php:
-    install: '1'
-    ppa: php5-5.6
+    packages:
+        - php5
+        - php5-curl
 xdebug:
     install: '1'
-

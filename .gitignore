@@ -96,3 +96,4 @@ Temporary Items
 
 ### Vagrant ###
 .vagrant/
+ansible/*.retry

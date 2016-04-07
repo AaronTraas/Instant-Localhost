@@ -9,5 +9,6 @@
         AllowOverride All
         Options +Indexes +FollowSymLinks
         Require all granted
+        EnableSendfile Off
     </Directory>
 </VirtualHost>

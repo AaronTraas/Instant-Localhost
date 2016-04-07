@@ -1,21 +1,27 @@
----
-- name: Update apt
-  sudo: yes
-  apt: update_cache=yes
-
-- name: Install php5
-  sudo: yes
-  apt: pkg=php5 state=latest
-
-- name: Install php5-fpm
-  sudo: yes
-  apt: pkg=php5-fpm state=latest
-
-- name: Install PHP Packages
-  sudo: yes
-  apt: pkg={{ item }} state=latest
+- name: Install PHP5 Packages
+  apt: pkg={{ item }}
+       state=latest
   with_items: php.packages
-  when: php.packages is defined
 
-- include: configure.yml
-- include: pecl.yml
+- name: enable php5-mcrypt config
+  shell: php5enmod mcrypt;
+  notify:
+    - restart apache
+
+- name: Ensure timezone is set in php.ini
+  ini_file: dest={{ item }}
+            section=Date
+            option=date.timezone
+            value={{ server.timezone }}
+            backup=yes
+  with_items:
+    - /etc/php5/apache2/php.ini
+    - /etc/php5/cli/php.ini
+
+- name: display php errors when not in production
+  ini_file: dest=/etc/php.ini
+            section=PHP
+            option=display_errors
+            value=On
+  notify:
+  - restart apache
