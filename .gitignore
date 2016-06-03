@@ -97,3 +97,4 @@ Temporary Items
 ### Vagrant ###
 .vagrant/
 ansible/*.retry
+ansible/*console.log
