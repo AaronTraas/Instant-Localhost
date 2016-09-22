@@ -12,7 +12,9 @@ apache:
     servername: localhost
 php:
     packages:
-        - php5
-        - php5-curl
+        - php
+        - php-curl
+        - php-mysql
+        - libapache2-mod-php
 xdebug:
     install: '1'
