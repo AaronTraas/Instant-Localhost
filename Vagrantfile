@@ -56,5 +56,5 @@ Vagrant.configure("2") do |config|
     end
 
 
-    config.vm.synced_folder "~/workspace", "/vagrant"
+    config.vm.synced_folder "../", "/vagrant"
 end
