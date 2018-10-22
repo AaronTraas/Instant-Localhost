@@ -2,7 +2,7 @@
 #by commenting or removing the line below and providing the config.vm.box_url parameter,
 #if it's not already defined in this Vagrantfile. Keep in mind that you won't be able
 #to use the Vagrant Cloud and other newer Vagrant features.
-Vagrant.require_version ">= 1.5"
+Vagrant.require_version ">= 2.0"
 
 VM_NAME = "Instant Localhost"
 PORT_TO_FORWARD = "8080"
@@ -33,7 +33,7 @@ Vagrant.configure("2") do |config|
         ]
     end
 
-    config.vm.box = "ubuntu/xenial64"
+    config.vm.box = "bento/ubuntu-18.04"
 
     config.vm.network "forwarded_port", guest: 80, host: PORT_TO_FORWARD
 
@@ -42,17 +42,14 @@ Vagrant.configure("2") do |config|
     #############################################################
     # Ansible provisioning (you need to have ansible installed)
     #############################################################
-
-
     if which('ansible-playbook')
         config.vm.provision "ansible" do |ansible|
             ansible.playbook = "ansible/provision.yml"
+            ansible.compatibility_mode = "2.0"
             ansible.extra_vars = {
                 base_url: "http://localhost:" + PORT_TO_FORWARD,
-        }
+            }
         end
-    else
-        config.vm.provision :shell, path: "ansible/windows.sh", args: [VM_NAME]
     end
 
 

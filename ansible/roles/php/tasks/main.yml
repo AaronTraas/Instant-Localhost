@@ -1,29 +1,30 @@
-- name: Install PHP5 Packages
-  apt: pkg={{ item }}
-       state=latest
-  with_items: "{{ php.packages }}"
+- name: Install PHP Packages
+  apt: 
+    pkg: "{{ php.packages }}"
+    state: latest
 
 - name: enable php5-mcrypt config
-#  shell: php5enmod mcrypt;
   shell: phpenmod mcrypt;
   notify:
     - restart apache
 
 - name: Ensure timezone is set in php.ini
-  ini_file: dest={{ item }}
-            section=Date
-            option=date.timezone
-            value={{ server.timezone }}
-            backup=yes
+  ini_file: 
+    dest: "{{ item }}"
+    section: Date
+    option: date.timezone
+    value: "{{ server.timezone }}"
+    backup: yes
   with_items:
     - /etc/php/7.0/apache2/php.ini
     - /etc/php/7.0/cli/php.ini
 
 - name: display php errors when not in production
-  ini_file: dest={{ item }}
-            section=PHP
-            option=display_errors
-            value=On
+  ini_file: 
+    dest: "{{ item }}"
+    section: PHP
+    option: display_errors
+    value: On
   with_items:
     - /etc/php/7.0/apache2/php.ini
     - /etc/php/7.0/cli/php.ini
@@ -31,12 +32,17 @@
   - restart apache
 
 - name: display php errors when not in production
-  ini_file: dest={{ item }}
-            section=PHP
-            option=error_reporting
-            value="E_ALL & ~E_NOTICE"
+  ini_file: 
+    dest: "{{ item }}"
+    section: PHP
+    option: error_reporting
+    value: "E_ALL & ~E_NOTICE"
   with_items:
     - /etc/php/7.0/apache2/php.ini
     - /etc/php/7.0/cli/php.ini
   notify:
   - restart apache
+
+- name: Install composer
+  shell: curl -s https://getcomposer.org/installer | php; mv composer.phar /usr/local/bin/composer
+

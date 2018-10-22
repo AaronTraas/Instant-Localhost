@@ -3,6 +3,15 @@ server:
     install: '1'
     timezone: America/New_York
     locale: en_US.UTF-8
+    packages: 
+      - htop
+      - ack-grep
+      - wget
+      - nano
+      - curl
+      - git
+      - unzip
+      - software-properties-common
 vagrant_local:
     install: '1'
     vm: { base_box: trusty64, hostname: localhost, ip: 192.168.33.99, memory: '512', sharedfolder: ./, enableWindows: '1', useVagrantCloud: '1', syncType: nfs }
@@ -13,8 +22,10 @@ apache:
 php:
     packages:
         - php
+        - php-cli
         - php-curl
         - php-mysql
+        - php-mbstring
         - libapache2-mod-php
 xdebug:
     install: '1'
