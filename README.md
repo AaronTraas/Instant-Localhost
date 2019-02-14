@@ -1,6 +1,6 @@
 # Vagrant + Ansible Instant Web Server (Ubuntu Xenial)
 
-Creates a "localhost" web server using Vagrant and Ansible with Ubuntu 16.04.
+Creates a "localhost" web server using Vagrant and Ansible with Ubuntu 18.04.
 
 Start this up, and you will have an Ubuntu 16.04 VM with Apache 2.4 and PHP 7
 running at <http://localhost:8080>, with a doc root of ~/workspace on your
